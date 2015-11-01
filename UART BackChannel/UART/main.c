@@ -28,11 +28,11 @@ void initialize_clock()
 void initialize_uart()
 {
 	 //Configure GPIO
-	P3SEL0 |= BIT4 | BIT5;                    // USCI_A1 UART operation using Backchannel
+	P3SEL0 |= BIT4 | BIT5;                    // USCI_A0 UART operation using Backchannel
 	P3SEL1 &= ~(BIT4 | BIT5);
 
 
-	// Configure USCI_A1 for UART mode
+	// Configure USCI_A0 for UART mode
 	UCA1CTLW0 |= UCSWRST;                      // Put eUSCI in reset
 	//UCA1CTLW0 &= ~0x0010;
 	UCA1CTLW0 |= UCSSEL__SMCLK;               // CLK = SMCLK
@@ -47,7 +47,7 @@ void print_uart(unsigned char *character) {
 	while (*character != '\0') {
 		while (!(UCA1IFG & UCTXIFG));
     	UCA1TXBUF = *character++;
-    //	_delay_cycles(8000);					// Just prints 'H' without delay
+    	//_delay_cycles(8000);					// Just prints 'H' without delay
 	}
 }
 
